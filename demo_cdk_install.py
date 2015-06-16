@@ -8,26 +8,21 @@ from demo_runner import Demo
 
 class CDKDemo(Demo):
     def run_demo(self):
-        self.print_comment("first we install Vagrant from the regular Fedora repositories.")
-        self.print_comment("Vagrant is available in the main Fedora repos since Fedora 21.")
-        self.print_comment("Vagrant is also available at vagrantup.com for other platforms.")
+        self.print_comment(
+            """first we install Vagrant from the regular Fedora repositories. Vagrant is available in
+               the main Fedora repos since Fedora 21. Vagrant is also available at vagrantup.com for
+               other platforms.""")
         self.print_and_exec_cmd("yum install -y vagrant vagrant-doc vagrant-libvirt vagrant-libvirt-doc")
 
-
-    def blah(self):
-        #start demo
-        self.print_comment("first we install Vagrant from the regular Fedora repositories.")
-        self.print_comment("Vagrant is available in the main Fedora repos since Fedora 21.")
-        self.print_comment("Vagrant is also available at vagrantup.com for other platforms.")
-        self.print_and_exec_cmd("yum install -y vagrant vagrant-doc vagrant-libvirt vagrant-libvirt-doc")
-
-        self.print_comment("Now we want to make it so that we can operate libvirt as a normal user.")
-        self.print_comment("This is a requirement of vagrant.")
+        self.print_comment(
+            """Now we want to make it so that we can operate libvirt as a normal user. This is a
+               requirement of vagrant.""")
         self.print_and_exec_cmd("cp -vf /usr/share/vagrant/gems/doc/vagrant-libvirt-0.0.24/polkit/10-vagrant-libvirt.rules /etc/polkit-1/rules.d/")
 
-        self.print_comment("Now we want to install a few useful vagrant plugins to make our work a bit easier.")
-        self.print_comment("However, before we do that, we need to install a few more libraries to allow")
-        self.print_comment("for the compilation of native ruby gems.")
+        self.print_comment(
+            """Now we want to install a few useful vagrant plugins to make our work a bit easier. However, "
+               before we do that, we need to install a few more libraries to allow for the compilation
+               of native ruby gems.""")
         self.print_and_exec_cmd("yum install -y @development-tools ruby-devel ruby-libvirt rubygem-ruby-libvirt libvirt-devel rubygem-unf_ext")
 
         self.print_comment("First we install the vagrant-atomic plugin which sets up atomic as a special guest ")
@@ -76,4 +71,4 @@ class CDKDemo(Demo):
 if __name__ == '__main__':
     demo = CDKDemo()
     print(dir(demo))
-    demo.main()
+    demo.test_demo()

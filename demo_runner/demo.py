@@ -21,6 +21,7 @@ class Demo:
         self.comment_color = 'yellow'
         self.max_words_per_line = 10
         self.min_words_per_line = 7
+        self.test_mode = False
 
     def _slow_type(self, t, color):
         for l in t:
@@ -63,8 +64,16 @@ class Demo:
 
     def print_and_exec_cmd(self, cmd):
         self._print_command(cmd)
-        output = subprocess.check_output(cmd, shell=True)
+        if not self.test_mode:
+            output = subprocess.check_output(cmd, shell=True)
+        else:
+            output = "fake output, we didn't really run it"
         self._print_output(output)
+
+    #this needs a bunch more work if we support non-root users
+#    def print_and_exec_cmd_root(self, cmd):
+#        cmd = "sudo " + cmd
+#        self.print_and_exec_cmd(cmd)
 
     def _start(self, prep_machine, prep_demo, delaystart):
         if prep_machine:
@@ -82,7 +91,7 @@ class Demo:
     def run_demo(self):
         raise NotImplementedError("Please Implement this method")
 
-    def main(self):
+    def demo(self):
         parser = ArgumentParser(description='Run a demo.', formatter_class=RawDescriptionHelpFormatter)
         parser.add_argument("--prepmachine", help="A script to run before anything else.")
         parser.add_argument("--prepdemo", help="A script to run before running the demo.")
@@ -92,4 +101,9 @@ class Demo:
         self._start(args.prepmachine, args.prepdemo, args.delaystart)
 
         sys.exit(0)
+
+    def test_demo(self):
+        self.typing_speed = 250
+        self.test_mode = True
+        self.demo()
 
