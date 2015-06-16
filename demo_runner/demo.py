@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import sys,time,random, os
+import sys, time, random, os
 from blessings import Terminal
 import subprocess
 from argparse import ArgumentParser
@@ -19,8 +19,8 @@ class Demo:
         self.typing_speed = 70 #wpm
         self.user_prompt = "[root@example.com cdk-demo]# "
         self.comment_color = 'yellow'
-        self.max_words_per_line = 10
-        self.min_words_per_line = 7
+        self.max_words_per_line = 14
+        self.min_words_per_line = 10
         self.test_mode = False
 
     def _slow_type(self, t, color):
@@ -42,7 +42,7 @@ class Demo:
             line = ""
             words_in_line = random.randrange(self.min_words_per_line, self.max_words_per_line)
             if (current + words_in_line) >= all_word_count:
-                line = " ".join(comments[current:all_word_count])
+                line = " ".join(comments[current+1:all_word_count])
                 current = all_word_count
             else:
                 for counter in range(0, words_in_line):

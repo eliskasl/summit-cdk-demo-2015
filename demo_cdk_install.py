@@ -20,22 +20,25 @@ class CDKDemo(Demo):
         self.print_and_exec_cmd("cp -vf /usr/share/vagrant/gems/doc/vagrant-libvirt-0.0.24/polkit/10-vagrant-libvirt.rules /etc/polkit-1/rules.d/")
 
         self.print_comment(
-            """Now we want to install a few useful vagrant plugins to make our work a bit easier. However, "
+            """Now we want to install a few useful vagrant plugins to make our work a bit easier. However, 
                before we do that, we need to install a few more libraries to allow for the compilation
                of native ruby gems.""")
         self.print_and_exec_cmd("yum install -y @development-tools ruby-devel ruby-libvirt rubygem-ruby-libvirt libvirt-devel rubygem-unf_ext")
 
-        self.print_comment("First we install the vagrant-atomic plugin which sets up atomic as a special guest ")
-        self.print_comment("type in vagrant because of the uniqueness of its use.")
+        self.print_comment(
+            """First we install the vagrant-atomic plugin which sets up atomic as a special guest type in vagrant
+               because of the uniqueness of its use.""")
         self.print_and_exec_cmd("vagrant plugin install vagrant-atomic")
 
-        self.print_comment("Next, we install the vagrant-registration plugin which automatically subscribes and ")
-        self.print_comment("unsubscribes a Red Hat VM with subscription-manager.")
+        self.print_comment(
+            """Next, we install the vagrant-registration plugin which automatically subscribes and unsubscribes a Red
+            Hat VM with subscription-manager.""")
         self.print_and_exec_cmd("vagrant plugin install vagrant-registration --plugin-version 0.0.11")
           
-        self.print_comment("Now we can add the VM(s) we want to use to vagrant. We can get the VMs from the Red ")
-        self.print_comment("Hat Portal at http://access.redhat.com with an appropriate subscription.") 
-        self.print_comment("We will skip the download and assume the two 'box' files are in our work directory.")
+        self.print_comment(
+            """Now we can add the VM(s) we want to use to vagrant. We can get the VMs from the Red Hat
+               Portal at http://access.redhat.com with an appropriate subscription. We will skip the download and
+               assume the two 'box' files are in our work directory.""")
         self.print_and_exec_cmd("vagrant box add --name 'rhel-atomic-7' rhel-atomic-libvirt-7.1-1.x86_64.box")
         self.print_and_exec_cmd("vagrant box add --name 'rhel-server-7' rhel-server-libvirt-7.1-1.x86_64.box")
 
