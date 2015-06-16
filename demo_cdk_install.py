@@ -17,10 +17,10 @@ class CDKDemo(Demo):
         self.print_comment(
             """Now we want to make it so that we can operate libvirt as a normal user. This is a
                requirement of vagrant.""")
-        self.print_and_exec_cmd("cp -vf /usr/share/vagrant/gems/doc/vagrant-libvirt-0.0.24/polkit/10-vagrant-libvirt.rules /etc/polkit-1/rules.d/")
+        self.print_and_exec_cmd("cp -vf /usr/share/vagrant/gems/doc/vagrant-libvirt-0.0.26/polkit/10-vagrant-libvirt.rules /etc/polkit-1/rules.d/")
 
         self.print_comment(
-            """Now we want to install a few useful vagrant plugins to make our work a bit easier. However, 
+            """Now we want to install a few useful vagrant plugins to make our work a bit easier. However,
                before we do that, we need to install a few more libraries to allow for the compilation
                of native ruby gems.""")
         self.print_and_exec_cmd("yum install -y @development-tools ruby-devel ruby-libvirt rubygem-ruby-libvirt libvirt-devel rubygem-unf_ext")
@@ -32,7 +32,7 @@ class CDKDemo(Demo):
 
         self.print_comment(
             """Next, we install the vagrant-registration plugin which automatically subscribes and unsubscribes a Red
-            Hat VM with subscription-manager.""")
+               Hat VM with subscription-manager.""")
         self.print_and_exec_cmd("vagrant plugin install vagrant-registration --plugin-version 0.0.11")
           
         self.print_comment(
@@ -56,22 +56,6 @@ class CDKDemo(Demo):
         self.print_comment("The Vagrantfile picks up those creds.")
         self.print_and_exec_cmd("cat docker-dev/docker-host/Vagrantfile")
 
-        self.print_comment("We are going to add an image to the 'dev' Vagrantfile")
-        self.print_comment("While we are at it we are going to map a port to access the container")
-        self.print_and_exec_cmd("sed -i -e 's|d.build_dir = \".\"|d.image = \"fedora/apache\"\\n      d.ports=[\"8080:80\"]|g' docker-dev/dev/Vagrantfile")
-        self.print_and_exec_cmd("cat docker-dev/dev/Vagrantfile")
-
-        self.print_comment("Now we can start the server up")
-        self.print_and_exec_cmd("cd docker-dev/dev/")
-        USER_PROMPT = "[root@example.com dev]# "
-        os.chdir("/root/docker-dev/dev/")
-        self.print_and_exec_cmd("vagrant up")
-
-        self.print_comment("Finally, we can see that apache is now running in a docker container on our rhel host")
-        self.print_and_exec_cmd("export HOST_IP=$(virsh net-dhcp-leases vagrant-libvirt | grep docker | awk '{print $6}' | sed -e 's|/24||g')")
-        self.print_and_exec_cmd("curl -L http://$HOST_IP:8080/")
-
 if __name__ == '__main__':
     demo = CDKDemo()
-    print(dir(demo))
     demo.test_demo()

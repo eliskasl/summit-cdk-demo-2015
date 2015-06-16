@@ -22,6 +22,8 @@ class Demo:
         self.max_words_per_line = 14
         self.min_words_per_line = 10
         self.test_mode = False
+        self.reading_speed = 5 #lines per second
+        self.line_length = 150 #length of one line
 
     def _slow_type(self, t, color):
         for l in t:
@@ -62,12 +64,24 @@ class Demo:
         self._normal_print(str, 'nc')
         print ''
 
+    def _calc_reading_delay(self, num_chars):
+        reading_delay = int((num_chars / self.line_length) / self.reading_speed)
+        return reading_delay
+
     def print_and_exec_cmd(self, cmd):
         self._print_command(cmd)
         if not self.test_mode:
             output = subprocess.check_output(cmd, shell=True)
+            #delay a bit for the reader
+            time.sleep(self._calc_reading_delay(len(output)))
         else:
             output = "fake output, we didn't really run it"
+            #delay a bit for the reader
+            random_output_size = random.randrange(150, 5000)
+            reading_delay = self._calc_reading_delay(random_output_size)
+            print("random_output_size= ", random_output_size, "reading_delay=", reading_delay)
+            #don't really sleep in test: time.sleep(reading_delay)
+
         self._print_output(output)
 
     #this needs a bunch more work if we support non-root users
