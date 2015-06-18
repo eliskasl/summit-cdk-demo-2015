@@ -1,3 +1,5 @@
 .idea*
 .vagrant*
 *pyc
+*.swp
+demo_runner/test.file

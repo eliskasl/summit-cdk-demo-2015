@@ -1,8 +1,7 @@
 #!/usr/bin/env python
 
-#import sys,time,random, os
-#from blessings import Terminal
-#import subprocess
+import sys, os
+sys.path.append("../")
 
 from demo_runner import Demo
 
@@ -50,7 +49,7 @@ class CDKDemo(Demo):
         self.print_and_exec_cmd("cp -rvf cdk/components/rhel-with-docker/* docker-dev/")
         self.print_and_exec_cmd("tree docker-dev")
 
-        self.print_comment("Now our credentials our already set in environment variables like this:")
+        self.print_comment("Now our credentials are already set in environment variables like this:")
         self.print_comment("export SUB_USERNAME='username'")
         self.print_comment("export SUB_PASSWORD='password'")
         self.print_comment("The Vagrantfile picks up those creds.")

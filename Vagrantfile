@@ -3,6 +3,6 @@ Vagrant.configure(2) do |config|
     host.vm.box = "f22-cloud"
     host.vm.synced_folder ".", "/home/vagrant/sync", type: "rsync",
                           rsync__exclude: [ ".git/", ".#*", "*~", "*qcow*" ]
-    host.vm.provision 'shell', inline: "sudo yum install -y python-pip"
+    host.vm.provision 'shell', inline: "sudo yum install -y python-pip system-storage-manager"
   end
 end
