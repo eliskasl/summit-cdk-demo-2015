@@ -19,8 +19,8 @@ class Demo:
         self.typing_speed = 70 #wpm
         self.user_prompt = "[root@example.com cdk-demo]# "
         self.comment_color = 'yellow'
-        self.max_words_per_line = 14
-        self.min_words_per_line = 10
+        self.max_words_per_line = 18
+        self.min_words_per_line = 12
         self.test_mode = False
         self.reading_speed = 5 #lines per second
         self.line_length = 150 #length of one line
@@ -51,8 +51,14 @@ class Demo:
                     current += 1
 
             self._normal_print(self.user_prompt, 'nc')
-            self._slow_type(line, self.comment_color)
+            self._slow_type("# " + line, self.comment_color)
             print ''
+    
+    def print_blank_lines(self, num=1):
+        for i in range(num):
+            self._normal_print(self.user_prompt, 'nc')
+            print ''
+            time.sleep(random.random()*.5)
 
     def _print_command(self, str):
         self._normal_print(self.user_prompt, 'nc')
